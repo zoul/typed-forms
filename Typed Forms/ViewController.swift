@@ -31,7 +31,7 @@ class ViewController: FormViewController<CardSelectionModel> {
         let card3 = Card(name: "Card #3", currencies: ["EUR"])
         let model = CardSelectionModel(
             cards: [card1, card2, card3], selectedCard: card2,
-            selectedCurrency: "EUR", specifyAmount: true)
+            selectedCurrency: "EUR", specifyAmount: false)
 
         let form = Form<CardSelectionModel>()
 

@@ -15,7 +15,7 @@ class FormSegmentedCell<Model, ItemType>: FormCell<Model> where ItemType: Equata
 
         super.init()
 
-        // TODO: Update model on value change
+        segmentedControl.addTarget(self, action: #selector(valueChanged), for: .valueChanged)
 
         contentView.addSubview(segmentedControl)
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
@@ -51,6 +51,13 @@ class FormSegmentedCell<Model, ItemType>: FormCell<Model> where ItemType: Equata
         // Update selection
         if let selectedIndex = items.index(of: selectedItem) {
             segmentedControl.selectedSegmentIndex = selectedIndex
+        }
+    }
+
+    @objc private func valueChanged() {
+        let selectedItem = displayedItems[segmentedControl.selectedSegmentIndex]
+        update { model in
+            model[keyPath: selectedItemKeyPath] = selectedItem
         }
     }
 }
