@@ -19,11 +19,7 @@ struct CardSelectionModel {
         }
     }
     var selectedCurrency: String
-
     var specifyAmount: Bool
-    var noAmount: Bool {
-        return !specifyAmount
-    }
 }
 
 class ViewController: FormViewController<CardSelectionModel> {
@@ -32,8 +28,9 @@ class ViewController: FormViewController<CardSelectionModel> {
 
         let card1 = Card(name: "Card #1", currencies: ["CZK", "EUR"])
         let card2 = Card(name: "Card #2", currencies: ["EUR", "PLN", "GBP"])
+        let card3 = Card(name: "Card #3", currencies: ["EUR"])
         let model = CardSelectionModel(
-            cards: [card1, card2], selectedCard: card2,
+            cards: [card1, card2, card3], selectedCard: card2,
             selectedCurrency: "EUR", specifyAmount: true)
 
         let form = Form<CardSelectionModel>()
@@ -45,8 +42,10 @@ class ViewController: FormViewController<CardSelectionModel> {
 
         form += Section()
             <<< FormSwitchCell(keyPath: \.specifyAmount, title: "Specify Amount")
-            <<< FormLabelCell(title: ":-)")
-            <<< FormLabelCell(title: ":-(")
+            <<< FormLabelCell(title: "TODO: Add input") {
+                $0.visible = \.specifyAmount
+                $0.textLabel?.textColor = .gray
+            }
 
         super.init(model: model, form: form)
     }

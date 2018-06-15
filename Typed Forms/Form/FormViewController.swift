@@ -5,7 +5,9 @@ class FormViewController<Model>: UITableViewController {
     var form: Form<Model>
     var model: Model {
         didSet {
+            tableView.beginUpdates()
             form.render(model)
+            tableView.endUpdates()
         }
     }
 
@@ -22,6 +24,14 @@ class FormViewController<Model>: UITableViewController {
             print("New model: \(self.model)")
         }
 
+        form.insertRows = { [weak self] paths in
+            self?.tableView.insertRows(at: paths, with: .automatic)
+        }
+
+        form.deleteRows = { [weak self] paths in
+            self?.tableView.deleteRows(at: paths, with: .automatic)
+        }
+
         form.render(model)
     }
 
@@ -30,7 +40,7 @@ class FormViewController<Model>: UITableViewController {
     }
 
     private func cell(for indexPath: IndexPath) -> FormCell<Model> {
-        return form.sections[indexPath.section].cells[indexPath.row]
+        return form.sections[indexPath.section].visibleCells[indexPath.row]
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -38,7 +48,7 @@ class FormViewController<Model>: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return form.sections[section].cells.count
+        return form.sections[section].visibleCells.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

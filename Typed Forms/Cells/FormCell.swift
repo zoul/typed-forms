@@ -4,6 +4,7 @@ class FormCell<Model>: UITableViewCell {
 
     var update: ((inout Model) -> Void) -> Void = { _ in }
 
+    var visible: KeyPath<Model, Bool>?
     var shouldHighlight = false
     var didSelect = {}
 
@@ -16,5 +17,9 @@ class FormCell<Model>: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func render(_ model: Model) {}
+    func render(_ model: Model) {
+        if let visible = visible {
+            isHidden = !model[keyPath: visible]
+        }
+    }
 }

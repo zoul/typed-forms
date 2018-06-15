@@ -15,6 +15,8 @@ class SelectableSection<Model, ItemType>: Section<Model> where ItemType: Equatab
 
     override func render(_ model: Model) {
 
+        super.render(model)
+
         let items = model[keyPath: itemsKeyPath]
         let selectedItem = model[keyPath: selectedItemKeyPath]
 
