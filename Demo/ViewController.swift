@@ -11,35 +11,35 @@ struct Card: Equatable, CustomStringConvertible {
     }
 }
 
-struct CardSelectionModel {
+class ViewController: FormViewController<ViewController.ViewModel> {
 
-    var cards: [Card]
-    var selectedCard: Card {
-        didSet {
-            selectedCurrency = selectedCard.currencies.first!
+    struct ViewModel {
+
+        var cards: [Card]
+        var selectedCard: Card {
+            didSet {
+                selectedCurrency = selectedCard.currencies.first!
+            }
+        }
+        var selectedCurrency: String
+        var specifyAmount: Bool
+        var amount: String
+
+        var canBeSubmitted: Bool {
+            return !specifyAmount || Double(amount) != nil
         }
     }
-    var selectedCurrency: String
-    var specifyAmount: Bool
-    var amount: String
-
-    var canBeSubmitted: Bool {
-        return !specifyAmount || Double(amount) != nil
-    }
-}
-
-class ViewController: FormViewController<CardSelectionModel> {
 
     init() {
 
         let card1 = Card(name: "Card #1", currencies: ["CZK", "EUR"])
         let card2 = Card(name: "Card #2", currencies: ["EUR", "PLN", "GBP"])
         let card3 = Card(name: "Card #3", currencies: ["EUR"])
-        let model = CardSelectionModel(
+        let model = ViewModel(
             cards: [card1, card2, card3], selectedCard: card2,
             selectedCurrency: "EUR", specifyAmount: false, amount: "1000")
 
-        let form = Form<CardSelectionModel>()
+        let form = Form<ViewModel>()
 
         form += SelectableSection("Cards", items: \.cards, selectedItem: \.selectedCard)
 
