@@ -2,13 +2,12 @@ import UIKit
 
 public class FormCell<Model>: UITableViewCell {
 
+    public var shouldHighlight = false
+
     var update: ((inout Model) -> Void) -> Void = { _ in }
-
-    public var visibilityKeyPath: KeyPath<Model, Bool>?
-    public var highlightingKeyPath: KeyPath<Model, Bool>?
-
-    var shouldHighlight = false
     var didSelect = {}
+
+    private var bindings: [(Model) -> Void] = []
 
     public init() {
         super.init(style: .default, reuseIdentifier: nil)
@@ -19,11 +18,26 @@ public class FormCell<Model>: UITableViewCell {
     }
     
     func render(_ model: Model) {
-        if let visibilityKeyPath = visibilityKeyPath {
-            isHidden = !model[keyPath: visibilityKeyPath]
+        bindings.forEach { $0(model) }
+    }
+}
+
+public extension FormCell {
+
+    public func bind<T>(
+        _ viewPath: WritableKeyPath<FormCell, T>,
+        to modelPath: KeyPath<Model, T>) {
+        bindings.append { [weak self] model in
+            self?[keyPath: viewPath] = model[keyPath: modelPath]
         }
-        if let highlightingKeyPath = highlightingKeyPath {
-            shouldHighlight = model[keyPath: highlightingKeyPath]
+    }
+
+    public func bind<T, U>(
+        _ viewPath: WritableKeyPath<FormCell, T>,
+        to modelPath: KeyPath<Model, U>,
+        through f: @escaping (U) -> T) {
+        bindings.append { [weak self] model in
+            self?[keyPath: viewPath] = f(model[keyPath: modelPath])
         }
     }
 }

@@ -49,12 +49,12 @@ class ViewController: FormViewController<ViewController.ViewModel> {
         form += Section()
             <<< FormSwitchCell(keyPath: \.specifyAmount, title: "Specify Amount")
             <<< FormTextFieldCell(keyPath: \.amount) {
-                $0.visibilityKeyPath = \.specifyAmount
+                $0.bind(\.isHidden, to: \.specifyAmount, through: { !$0 })
             }
 
         form += Section()
             <<< FormButtonCell(title: "Pay") {
-                $0.highlightingKeyPath = \.canBeSubmitted
+                $0.bind(\.shouldHighlight, to: \.canBeSubmitted)
             }
 
         super.init(model: model, form: form)
