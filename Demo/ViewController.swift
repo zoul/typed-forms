@@ -21,6 +21,11 @@ struct CardSelectionModel {
     }
     var selectedCurrency: String
     var specifyAmount: Bool
+    var amount: String
+
+    var canBeSubmitted: Bool {
+        return !specifyAmount || Double(amount) != nil
+    }
 }
 
 class ViewController: FormViewController<CardSelectionModel> {
@@ -32,7 +37,7 @@ class ViewController: FormViewController<CardSelectionModel> {
         let card3 = Card(name: "Card #3", currencies: ["EUR"])
         let model = CardSelectionModel(
             cards: [card1, card2, card3], selectedCard: card2,
-            selectedCurrency: "EUR", specifyAmount: false)
+            selectedCurrency: "EUR", specifyAmount: false, amount: "1000")
 
         let form = Form<CardSelectionModel>()
 
@@ -43,14 +48,13 @@ class ViewController: FormViewController<CardSelectionModel> {
 
         form += Section()
             <<< FormSwitchCell(keyPath: \.specifyAmount, title: "Specify Amount")
-            <<< FormLabelCell(title: "TODO: Add input") {
+            <<< FormTextFieldCell(keyPath: \.amount) {
                 $0.visibilityKeyPath = \.specifyAmount
-                $0.textLabel?.textColor = .gray
             }
 
         form += Section()
             <<< FormButton(title: "Pay") {
-                $0.highlightingKeyPath = \.specifyAmount
+                $0.highlightingKeyPath = \.canBeSubmitted
             }
 
         super.init(model: model, form: form)

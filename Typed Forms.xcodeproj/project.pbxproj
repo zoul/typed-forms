@@ -23,6 +23,7 @@
 		0DC7B0CF20D7AA2B00824D6E /* FormSegmentedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D648E8320D2AD1E008F5519 /* FormSegmentedCell.swift */; };
 		0DC7B0D020D7AA2B00824D6E /* FormLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D648E8120D29826008F5519 /* FormLabelCell.swift */; };
 		0DC7B0D120D7AA2B00824D6E /* FormButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC7B0B320D799AB00824D6E /* FormButton.swift */; };
+		0DC7B0F620D7AE6200824D6E /* FormTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC7B0F520D7AE6200824D6E /* FormTextFieldCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,7 @@
 		0DC7B0B320D799AB00824D6E /* FormButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormButton.swift; sourceTree = "<group>"; };
 		0DC7B0BA20D7A9A600824D6E /* TypedForms.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TypedForms.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DC7B0F320D7ACEE00824D6E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0DC7B0F520D7AE6200824D6E /* FormTextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTextFieldCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 				0D648E7620D29625008F5519 /* FormSwitchCell.swift */,
 				0D648E8320D2AD1E008F5519 /* FormSegmentedCell.swift */,
 				0D648E8120D29826008F5519 /* FormLabelCell.swift */,
+				0DC7B0F520D7AE6200824D6E /* FormTextFieldCell.swift */,
 				0DC7B0B320D799AB00824D6E /* FormButton.swift */,
 			);
 			path = Cells;
@@ -274,6 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0DC7B0C820D7AA2200824D6E /* Section.swift in Sources */,
+				0DC7B0F620D7AE6200824D6E /* FormTextFieldCell.swift in Sources */,
 				0DC7B0CD20D7AA2B00824D6E /* FormCell.swift in Sources */,
 				0DC7B0CF20D7AA2B00824D6E /* FormSegmentedCell.swift in Sources */,
 				0DC7B0CC20D7AA2500824D6E /* Operators.swift in Sources */,
