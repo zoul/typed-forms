@@ -1,15 +1,18 @@
 import UIKit
 
-public class SelectableSection<Model, ItemType>: Section<Model> where ItemType: Equatable & CustomStringConvertible {
+public class SelectableSection<Model, ItemType>: Section<Model> where ItemType: Equatable {
 
     public let itemsKeyPath: KeyPath<Model, [ItemType]>
     public let selectedItemKeyPath: WritableKeyPath<Model, ItemType>
 
+    private let descriptor: (ItemType) -> String
     private var displayedItems: [ItemType] = []
 
-    public init(_ header: String? = nil, items: KeyPath<Model, [ItemType]>, selectedItem: WritableKeyPath<Model, ItemType>) {
+    public init(_ header: String? = nil, items: KeyPath<Model, [ItemType]>,
+        selectedItem: WritableKeyPath<Model, ItemType>, descriptor: @escaping (ItemType) -> String) {
         itemsKeyPath = items
         selectedItemKeyPath = selectedItem
+        self.descriptor = descriptor
         super.init(header, cells: [])
     }
 
@@ -34,7 +37,7 @@ public class SelectableSection<Model, ItemType>: Section<Model> where ItemType: 
     }
 
     private func cellForItem(_ item: ItemType) -> FormCell<Model> {
-        let cell = FormLabelCell<Model>(title: item.description)
+        let cell = FormLabelCell<Model>(title: descriptor(item))
         cell.shouldHighlight = true
         cell.didSelect = { [weak self] in
             self?.didSelectCell(cell)
@@ -48,5 +51,13 @@ public class SelectableSection<Model, ItemType>: Section<Model> where ItemType: 
             let items = model[keyPath: itemsKeyPath]
             model[keyPath: selectedItemKeyPath] = items[itemIndex]
         }
+    }
+}
+
+extension SelectableSection where ItemType: CustomStringConvertible {
+
+    public convenience init(_ header: String? = nil, items: KeyPath<Model, [ItemType]>,
+        selectedItem: WritableKeyPath<Model, ItemType>) {
+        self.init(header, items: items, selectedItem: selectedItem, descriptor: { $0.description })
     }
 }
