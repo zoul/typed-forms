@@ -43,8 +43,13 @@ class ViewController: FormViewController<CardSelectionModel> {
         form += Section()
             <<< FormSwitchCell(keyPath: \.specifyAmount, title: "Specify Amount")
             <<< FormLabelCell(title: "TODO: Add input") {
-                $0.visible = \.specifyAmount
+                $0.visibilityKeyPath = \.specifyAmount
                 $0.textLabel?.textColor = .gray
+            }
+
+        form += Section()
+            <<< FormButton(title: "Pay") {
+                $0.highlightingKeyPath = \.specifyAmount
             }
 
         super.init(model: model, form: form)

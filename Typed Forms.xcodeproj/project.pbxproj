@@ -20,6 +20,7 @@
 		0D648E8220D29826008F5519 /* FormLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D648E8120D29826008F5519 /* FormLabelCell.swift */; };
 		0D648E8420D2AD1E008F5519 /* FormSegmentedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D648E8320D2AD1E008F5519 /* FormSegmentedCell.swift */; };
 		0DB2A65420D3990D00A1F2BD /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB2A65320D3990D00A1F2BD /* Operators.swift */; };
+		0DC7B0B420D799AB00824D6E /* FormButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC7B0B320D799AB00824D6E /* FormButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		0D648E8120D29826008F5519 /* FormLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormLabelCell.swift; sourceTree = "<group>"; };
 		0D648E8320D2AD1E008F5519 /* FormSegmentedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormSegmentedCell.swift; sourceTree = "<group>"; };
 		0DB2A65320D3990D00A1F2BD /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
+		0DC7B0B320D799AB00824D6E /* FormButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 				0D648E7620D29625008F5519 /* FormSwitchCell.swift */,
 				0D648E8320D2AD1E008F5519 /* FormSegmentedCell.swift */,
 				0D648E8120D29826008F5519 /* FormLabelCell.swift */,
+				0DC7B0B320D799AB00824D6E /* FormButton.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -185,6 +188,7 @@
 				0D648E7720D29625008F5519 /* FormSwitchCell.swift in Sources */,
 				0D648E8220D29826008F5519 /* FormLabelCell.swift in Sources */,
 				0D648E7C20D29670008F5519 /* SelectableSection.swift in Sources */,
+				0DC7B0B420D799AB00824D6E /* FormButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

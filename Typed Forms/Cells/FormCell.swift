@@ -4,7 +4,9 @@ class FormCell<Model>: UITableViewCell {
 
     var update: ((inout Model) -> Void) -> Void = { _ in }
 
-    var visible: KeyPath<Model, Bool>?
+    var visibilityKeyPath: KeyPath<Model, Bool>?
+    var highlightingKeyPath: KeyPath<Model, Bool>?
+
     var shouldHighlight = false
     var didSelect = {}
 
@@ -18,8 +20,11 @@ class FormCell<Model>: UITableViewCell {
     }
     
     func render(_ model: Model) {
-        if let visible = visible {
-            isHidden = !model[keyPath: visible]
+        if let visibilityKeyPath = visibilityKeyPath {
+            isHidden = !model[keyPath: visibilityKeyPath]
+        }
+        if let highlightingKeyPath = highlightingKeyPath {
+            shouldHighlight = model[keyPath: highlightingKeyPath]
         }
     }
 }
