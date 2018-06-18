@@ -6,11 +6,11 @@ public class FormTextFieldCell<Model>: FormCell<Model>, UITextFieldDelegate {
 
     private let textField = UITextField()
 
-    public init(keyPath: WritableKeyPath<Model, String>, _ initializer: (FormCell<Model>) -> Void = { _ in }) {
+    public init(keyPath: WritableKeyPath<Model, String>, _ initializer: (FormTextFieldCell<Model>) -> Void = { _ in }) {
 
         self.keyPath = keyPath
 
-        super.init(initializer)
+        super.init()
 
         contentView.addSubview(textField)
 
@@ -24,6 +24,8 @@ public class FormTextFieldCell<Model>: FormCell<Model>, UITextFieldDelegate {
             textField.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
             textField.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -14),
         ])
+
+        initializer(self)
     }
 
     public required init?(coder aDecoder: NSCoder) {

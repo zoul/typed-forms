@@ -10,9 +10,8 @@ public class FormCell<Model>: UITableViewCell {
     var shouldHighlight = false
     var didSelect = {}
 
-    public init(_ initializer: (FormCell<Model>) -> Void = { _ in }) {
+    public init() {
         super.init(style: .default, reuseIdentifier: nil)
-        initializer(self)
     }
     
     public required init?(coder aDecoder: NSCoder) {

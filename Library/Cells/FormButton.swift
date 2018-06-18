@@ -2,12 +2,13 @@ import UIKit
 
 public class FormButton<Model>: FormCell<Model> {
 
-    public init(title: String, _ initializer: (FormCell<Model>) -> Void = { _ in }) {
-        super.init(initializer)
+    public init(title: String, _ initializer: (FormButton<Model>) -> Void = { _ in }) {
+        super.init()
         textLabel?.text = title
         textLabel?.textColor = tintColor
         textLabel?.textAlignment = .center
         shouldHighlight = true
+        initializer(self)
     }
 
     public required init?(coder aDecoder: NSCoder) {
