@@ -1,6 +1,6 @@
 import UIKit
 
-class Form<Model> {
+public class Form<Model> {
 
     var update: ((inout Model) -> Void) -> Void = { _ in }
     var insertRows: ([IndexPath]) -> Void = { _ in }
@@ -8,11 +8,11 @@ class Form<Model> {
 
     private(set) var sections: [Section<Model>] = []
 
-    init(sections: [Section<Model>] = []) {
+    public init(sections: [Section<Model>] = []) {
         sections.forEach(addSection)
     }
 
-    func addSection(_ section: Section<Model>) {
+    public func addSection(_ section: Section<Model>) {
         let index = sections.count
         sections.append(section)
         section.update = { [weak self] change in

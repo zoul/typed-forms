@@ -1,9 +1,9 @@
 import UIKit
 
-class FormViewController<Model>: UITableViewController {
+open class FormViewController<Model>: UITableViewController {
 
-    var form: Form<Model>
-    var model: Model {
+    public var form: Form<Model>
+    public var model: Model {
         didSet {
             tableView.beginUpdates()
             form.render(model)
@@ -11,7 +11,7 @@ class FormViewController<Model>: UITableViewController {
         }
     }
 
-    init(model: Model, form: Form<Model>) {
+    public init(model: Model, form: Form<Model>) {
 
         self.model = model
         self.form = form
@@ -35,7 +35,7 @@ class FormViewController<Model>: UITableViewController {
         form.render(model)
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -43,27 +43,27 @@ class FormViewController<Model>: UITableViewController {
         return form.sections[indexPath.section].visibleCells[indexPath.row]
     }
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    open override func numberOfSections(in tableView: UITableView) -> Int {
         return form.sections.count
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    open override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return form.sections[section].visibleCells.count
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return cell(for: indexPath)
     }
 
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    open override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return form.sections[section].header
     }
 
-    override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+    open override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         return cell(for: indexPath).shouldHighlight
     }
 
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    open override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         cell(for: indexPath).didSelect()
     }

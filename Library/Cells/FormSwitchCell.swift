@@ -1,12 +1,12 @@
 import UIKit
 
-class FormSwitchCell<Model>: FormCell<Model> {
+public class FormSwitchCell<Model>: FormCell<Model> {
 
-    private let keyPath: WritableKeyPath<Model, Bool>
+    public let keyPath: WritableKeyPath<Model, Bool>
 
     private let switchControl = UISwitch()
 
-    init(keyPath: WritableKeyPath<Model, Bool>, title: String) {
+    public init(keyPath: WritableKeyPath<Model, Bool>, title: String) {
 
         self.keyPath = keyPath
 
@@ -18,7 +18,7 @@ class FormSwitchCell<Model>: FormCell<Model> {
         switchControl.addTarget(self, action: #selector(valueChanged), for: .valueChanged)
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 

@@ -1,4 +1,5 @@
 import UIKit
+import TypedForms
 
 struct Card: Equatable, CustomStringConvertible {
 

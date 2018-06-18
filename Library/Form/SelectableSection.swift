@@ -1,13 +1,13 @@
 import UIKit
 
-class SelectableSection<Model, ItemType>: Section<Model> where ItemType: Equatable & CustomStringConvertible {
+public class SelectableSection<Model, ItemType>: Section<Model> where ItemType: Equatable & CustomStringConvertible {
 
-    let itemsKeyPath: KeyPath<Model, [ItemType]>
-    let selectedItemKeyPath: WritableKeyPath<Model, ItemType>
+    public let itemsKeyPath: KeyPath<Model, [ItemType]>
+    public let selectedItemKeyPath: WritableKeyPath<Model, ItemType>
 
     private var displayedItems: [ItemType] = []
 
-    init(_ header: String? = nil, items: KeyPath<Model, [ItemType]>, selectedItem: WritableKeyPath<Model, ItemType>) {
+    public init(_ header: String? = nil, items: KeyPath<Model, [ItemType]>, selectedItem: WritableKeyPath<Model, ItemType>) {
         itemsKeyPath = items
         selectedItemKeyPath = selectedItem
         super.init(header, cells: [])

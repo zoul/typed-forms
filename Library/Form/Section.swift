@@ -1,8 +1,8 @@
 import UIKit
 
-class Section<Model> {
+public class Section<Model> {
 
-    var header: String?
+    public var header: String?
 
     var update: ((inout Model) -> Void) -> Void = { _ in }
     var insertRows: ([Int]) -> Void = { _ in }
@@ -13,13 +13,13 @@ class Section<Model> {
         return cells.filter { !$0.isHidden }
     }
 
-    init(_ header: String? = nil, cells: [FormCell<Model>] = []) {
+    public init(_ header: String? = nil, cells: [FormCell<Model>] = []) {
         self.header = header
         self.cells = cells
         cells.forEach(addCell)
     }
 
-    func addCell(_ cell: FormCell<Model>) {
+    public func addCell(_ cell: FormCell<Model>) {
         cells.append(cell)
         cell.update = { [weak self] change in
             self?.update(change)
