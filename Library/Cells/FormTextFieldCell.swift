@@ -3,8 +3,7 @@ import UIKit
 public class FormTextFieldCell<Model>: FormCell<Model>, UITextFieldDelegate {
 
     public let keyPath: WritableKeyPath<Model, String>
-
-    private let textField = UITextField()
+    public let textField = UITextField()
 
     public init(keyPath: WritableKeyPath<Model, String>, _ initializer: (FormTextFieldCell<Model>) -> Void = { _ in }) {
 

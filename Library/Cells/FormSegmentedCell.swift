@@ -4,8 +4,8 @@ public class FormSegmentedCell<Model, ItemType>: FormCell<Model> where ItemType:
 
     public let itemsKeyPath: KeyPath<Model, [ItemType]>
     public let selectedItemKeyPath: WritableKeyPath<Model, ItemType>
+    public let segmentedControl = UISegmentedControl()
 
-    private let segmentedControl = UISegmentedControl()
     private var displayedItems: [ItemType] = []
 
     public init(items: KeyPath<Model, [ItemType]>, selectedItem: WritableKeyPath<Model, ItemType>) {

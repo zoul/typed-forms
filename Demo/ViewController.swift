@@ -49,6 +49,8 @@ class ViewController: FormViewController<ViewController.ViewModel> {
         form += Section()
             <<< FormSwitchCell(keyPath: \.specifyAmount, title: "Specify Amount")
             <<< FormTextFieldCell(keyPath: \.amount) {
+                $0.textField.placeholder = "Enter amount"
+                $0.textField.clearButtonMode = .whileEditing
                 $0.bind(\.isHidden, to: \.specifyAmount, through: { !$0 })
             }
 

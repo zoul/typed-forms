@@ -3,8 +3,7 @@ import UIKit
 public class FormSwitchCell<Model>: FormCell<Model> {
 
     public let keyPath: WritableKeyPath<Model, Bool>
-
-    private let switchControl = UISwitch()
+    public let switchControl = UISwitch()
 
     public init(keyPath: WritableKeyPath<Model, Bool>, title: String) {
 
