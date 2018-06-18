@@ -1,8 +1,8 @@
 import UIKit
 
-public class FormButton<Model>: FormCell<Model> {
+public class FormButtonCell<Model>: FormCell<Model> {
 
-    public init(title: String, _ initializer: (FormButton<Model>) -> Void = { _ in }) {
+    public init(title: String, _ initializer: (FormButtonCell<Model>) -> Void = { _ in }) {
         super.init()
         textLabel?.text = title
         textLabel?.textColor = tintColor

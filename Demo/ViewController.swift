@@ -53,7 +53,7 @@ class ViewController: FormViewController<CardSelectionModel> {
             }
 
         form += Section()
-            <<< FormButton(title: "Pay") {
+            <<< FormButtonCell(title: "Pay") {
                 $0.highlightingKeyPath = \.canBeSubmitted
             }
 
