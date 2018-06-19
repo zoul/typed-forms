@@ -30,19 +30,22 @@ class ViewController: FormViewController<ViewController.ViewModel> {
             guard let amount = amount else { return false }
             return Double(amount) != nil
         }
+
+        static func sample() -> ViewModel {
+            let card1 = Card(name: "Card #1", currencies: ["CZK", "EUR"])
+            let card2 = Card(name: "Card #2", currencies: ["EUR", "PLN", "GBP"])
+            let card3 = Card(name: "Card #3", currencies: ["EUR"])
+            return ViewModel(
+                cards: [card1, card2, card3],
+                selectedCard: card2,
+                selectedCurrency: "EUR",
+                specifyAmount: false,
+                amount: "1000")
+        }
     }
 
     init() {
-        let card1 = Card(name: "Card #1", currencies: ["CZK", "EUR"])
-        let card2 = Card(name: "Card #2", currencies: ["EUR", "PLN", "GBP"])
-        let card3 = Card(name: "Card #3", currencies: ["EUR"])
-        super.init(model: ViewModel(
-            cards: [card1, card2, card3],
-            selectedCard: card2,
-            selectedCurrency: "EUR",
-            specifyAmount: false,
-            amount: "1000")
-        )
+        super.init(model: ViewModel.sample())
     }
 
     override func loadForm() -> Form<ViewModel> {
