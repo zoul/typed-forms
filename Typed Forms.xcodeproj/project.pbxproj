@@ -11,6 +11,7 @@
 		0D648E6220D26686008F5519 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D648E6120D26686008F5519 /* ViewController.swift */; };
 		0D648E6720D26687008F5519 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D648E6620D26687008F5519 /* Assets.xcassets */; };
 		0D648E6A20D26687008F5519 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D648E6820D26687008F5519 /* LaunchScreen.storyboard */; };
+		0D8AC9C720D9109100D4306A /* Bindings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8AC9C620D9109100D4306A /* Bindings.swift */; };
 		0DC7B0C120D7A9A600824D6E /* TypedForms.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DC7B0BA20D7A9A600824D6E /* TypedForms.framework */; };
 		0DC7B0C220D7A9A600824D6E /* TypedForms.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0DC7B0BA20D7A9A600824D6E /* TypedForms.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0DC7B0C820D7AA2200824D6E /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D648E7920D2963E008F5519 /* Section.swift */; };
@@ -65,6 +66,7 @@
 		0D648E7F20D29696008F5519 /* FormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormViewController.swift; sourceTree = "<group>"; };
 		0D648E8120D29826008F5519 /* FormLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormLabelCell.swift; sourceTree = "<group>"; };
 		0D648E8320D2AD1E008F5519 /* FormSegmentedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormSegmentedCell.swift; sourceTree = "<group>"; };
+		0D8AC9C620D9109100D4306A /* Bindings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindings.swift; sourceTree = "<group>"; };
 		0DB2A65320D3990D00A1F2BD /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		0DC7B0B320D799AB00824D6E /* FormButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormButtonCell.swift; sourceTree = "<group>"; };
 		0DC7B0BA20D7A9A600824D6E /* TypedForms.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TypedForms.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -112,6 +114,7 @@
 		0D648E7320D295D8008F5519 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				0D8AC9C620D9109100D4306A /* Bindings.swift */,
 				0D648E7420D29607008F5519 /* FormCell.swift */,
 				0D648E7620D29625008F5519 /* FormSwitchCell.swift */,
 				0D648E8320D2AD1E008F5519 /* FormSegmentedCell.swift */,
@@ -313,6 +316,7 @@
 				0DC7B0CB20D7AA2500824D6E /* FormViewController.swift in Sources */,
 				0DC7B0D020D7AA2B00824D6E /* FormLabelCell.swift in Sources */,
 				0DC7B0CA20D7AA2500824D6E /* Form.swift in Sources */,
+				0D8AC9C720D9109100D4306A /* Bindings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
