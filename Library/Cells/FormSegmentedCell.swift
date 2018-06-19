@@ -9,8 +9,10 @@ public class FormSegmentedCell<Model, ItemType>: FormCell<Model> where ItemType:
     private var displayedItems: [ItemType] = []
     private let descriptor: (ItemType) -> String
 
-    public init(items: KeyPath<Model, [ItemType]>, selectedItem: WritableKeyPath<Model, ItemType>,
-        descriptor: @escaping (ItemType) -> String) {
+    public init(items: KeyPath<Model, [ItemType]>,
+        selectedItem: WritableKeyPath<Model, ItemType>,
+        descriptor: @escaping (ItemType) -> String,
+        _ initializer: (FormSegmentedCell<Model, ItemType>) -> Void = { _ in }) {
 
         itemsKeyPath = items
         selectedItemKeyPath = selectedItem
@@ -28,6 +30,8 @@ public class FormSegmentedCell<Model, ItemType>: FormCell<Model> where ItemType:
             segmentedControl.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
             segmentedControl.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
         ])
+
+        initializer(self)
     }
 
     public required init?(coder aDecoder: NSCoder) {
@@ -67,7 +71,8 @@ public class FormSegmentedCell<Model, ItemType>: FormCell<Model> where ItemType:
 
 extension FormSegmentedCell where ItemType: CustomStringConvertible {
 
-    public convenience init(items: KeyPath<Model, [ItemType]>, selectedItem: WritableKeyPath<Model, ItemType>) {
-        self.init(items: items, selectedItem: selectedItem, descriptor: { $0.description })
+    public convenience init(items: KeyPath<Model, [ItemType]>, selectedItem: WritableKeyPath<Model, ItemType>,
+        _ initializer: (FormSegmentedCell<Model, ItemType>) -> Void = { _ in }) {
+        self.init(items: items, selectedItem: selectedItem, descriptor: { $0.description }, initializer)
     }
 }

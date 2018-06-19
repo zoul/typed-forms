@@ -5,7 +5,8 @@ public class FormSwitchCell<Model>: FormCell<Model> {
     public let keyPath: WritableKeyPath<Model, Bool>
     public let switchControl = UISwitch()
 
-    public init(keyPath: WritableKeyPath<Model, Bool>, title: String) {
+    public init(keyPath: WritableKeyPath<Model, Bool>, title: String,
+        _ initializer: (FormSwitchCell<Model>) -> Void = { _ in }) {
 
         self.keyPath = keyPath
 
@@ -15,6 +16,8 @@ public class FormSwitchCell<Model>: FormCell<Model> {
         textLabel?.text = title
         accessoryView = switchControl
         switchControl.addTarget(self, action: #selector(valueChanged), for: .valueChanged)
+
+        initializer(self)
     }
 
     public required init?(coder aDecoder: NSCoder) {
