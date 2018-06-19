@@ -2,7 +2,8 @@ import UIKit
 
 open class FormViewController<Model>: UITableViewController {
 
-    public var form: Form<Model>
+    public lazy var form: Form<Model> = self.loadInitialForm()
+
     public var model: Model {
         didSet {
             tableView.beginUpdates()
@@ -11,17 +12,32 @@ open class FormViewController<Model>: UITableViewController {
         }
     }
 
-    public init(model: Model, form: Form<Model>) {
-
+    public init(model: Model) {
         self.model = model
-        self.form = form
-
         super.init(style: .grouped)
+    }
+
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    //
+    // MARK: Form Loading
+    //
+
+    open func loadForm() -> Form<Model> {
+        fatalError("loadForm() has not been implemented")
+    }
+
+    private func loadInitialForm() -> Form<Model> {
+
+        let form = loadForm()
+
+        form.render(model)
 
         form.update = { [weak self] change in
             guard let `self` = self else { return }
             change(&self.model)
-            print("New model: \(self.model)")
         }
 
         form.insertRows = { [weak self] paths in
@@ -32,12 +48,12 @@ open class FormViewController<Model>: UITableViewController {
             self?.tableView.deleteRows(at: paths, with: .automatic)
         }
 
-        form.render(model)
+        return form
     }
 
-    public required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    //
+    // MARK: UITableViewDataSource
+    //
 
     private func cell(for indexPath: IndexPath) -> FormCell<Model> {
         return form.sections[indexPath.section].visibleCells[indexPath.row]

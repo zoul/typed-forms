@@ -33,13 +33,19 @@ class ViewController: FormViewController<ViewController.ViewModel> {
     }
 
     init() {
-
         let card1 = Card(name: "Card #1", currencies: ["CZK", "EUR"])
         let card2 = Card(name: "Card #2", currencies: ["EUR", "PLN", "GBP"])
         let card3 = Card(name: "Card #3", currencies: ["EUR"])
-        let model = ViewModel(
-            cards: [card1, card2, card3], selectedCard: card2,
-            selectedCurrency: "EUR", specifyAmount: false, amount: "1000")
+        super.init(model: ViewModel(
+            cards: [card1, card2, card3],
+            selectedCard: card2,
+            selectedCurrency: "EUR",
+            specifyAmount: false,
+            amount: "1000")
+        )
+    }
+
+    override func loadForm() -> Form<ViewModel> {
 
         let form = Form<ViewModel>()
 
@@ -68,7 +74,7 @@ class ViewController: FormViewController<ViewController.ViewModel> {
                 $0.bind(\.shouldHighlight, to: \.canBeSubmitted)
             }
 
-        super.init(model: model, form: form)
+        return form
     }
 
     required init?(coder aDecoder: NSCoder) {
