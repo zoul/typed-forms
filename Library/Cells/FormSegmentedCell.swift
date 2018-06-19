@@ -1,17 +1,20 @@
 import UIKit
 
-public class FormSegmentedCell<Model, ItemType>: FormCell<Model> where ItemType: Equatable & CustomStringConvertible {
+public class FormSegmentedCell<Model, ItemType>: FormCell<Model> where ItemType: Equatable {
 
     public let itemsKeyPath: KeyPath<Model, [ItemType]>
     public let selectedItemKeyPath: WritableKeyPath<Model, ItemType>
     public let segmentedControl = UISegmentedControl()
 
     private var displayedItems: [ItemType] = []
+    private let descriptor: (ItemType) -> String
 
-    public init(items: KeyPath<Model, [ItemType]>, selectedItem: WritableKeyPath<Model, ItemType>) {
+    public init(items: KeyPath<Model, [ItemType]>, selectedItem: WritableKeyPath<Model, ItemType>,
+        descriptor: @escaping (ItemType) -> String) {
 
         itemsKeyPath = items
         selectedItemKeyPath = selectedItem
+        self.descriptor = descriptor
 
         super.init()
 
@@ -42,7 +45,7 @@ public class FormSegmentedCell<Model, ItemType>: FormCell<Model> where ItemType:
         if items != displayedItems {
             segmentedControl.removeAllSegments()
             items.forEach {
-                segmentedControl.insertSegment(withTitle: $0.description,
+                segmentedControl.insertSegment(withTitle: descriptor($0),
                     at: segmentedControl.numberOfSegments, animated: false)
             }
             displayedItems = items
@@ -59,5 +62,12 @@ public class FormSegmentedCell<Model, ItemType>: FormCell<Model> where ItemType:
         update { model in
             model[keyPath: selectedItemKeyPath] = selectedItem
         }
+    }
+}
+
+extension FormSegmentedCell where ItemType: CustomStringConvertible {
+
+    public convenience init(items: KeyPath<Model, [ItemType]>, selectedItem: WritableKeyPath<Model, ItemType>) {
+        self.init(items: items, selectedItem: selectedItem, descriptor: { $0.description })
     }
 }

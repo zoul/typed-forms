@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0DC7B0B920D7A9A600824D6E"
-               BuildableName = "Typed_Forms.framework"
+               BuildableName = "TypedForms.framework"
                BlueprintName = "Typed Forms"
                ReferencedContainer = "container:Typed Forms.xcodeproj">
             </BuildableReference>
@@ -46,7 +46,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0DC7B0B920D7A9A600824D6E"
-            BuildableName = "Typed_Forms.framework"
+            BuildableName = "TypedForms.framework"
             BlueprintName = "Typed Forms"
             ReferencedContainer = "container:Typed Forms.xcodeproj">
          </BuildableReference>
@@ -64,7 +64,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0DC7B0B920D7A9A600824D6E"
-            BuildableName = "Typed_Forms.framework"
+            BuildableName = "TypedForms.framework"
             BlueprintName = "Typed Forms"
             ReferencedContainer = "container:Typed Forms.xcodeproj">
          </BuildableReference>
