@@ -125,8 +125,6 @@
 		0D648E7820D29636008F5519 /* Form */ = {
 			isa = PBXGroup;
 			children = (
-				0D648E7920D2963E008F5519 /* Section.swift */,
-				0D648E7B20D29670008F5519 /* SelectableSection.swift */,
 				0D648E7D20D29683008F5519 /* Form.swift */,
 				0D648E7F20D29696008F5519 /* FormViewController.swift */,
 				0DB2A65320D3990D00A1F2BD /* Operators.swift */,
@@ -134,10 +132,20 @@
 			path = Form;
 			sourceTree = "<group>";
 		};
+		0D8AC9C320D8F14A00D4306A /* Sections */ = {
+			isa = PBXGroup;
+			children = (
+				0D648E7920D2963E008F5519 /* Section.swift */,
+				0D648E7B20D29670008F5519 /* SelectableSection.swift */,
+			);
+			path = Sections;
+			sourceTree = "<group>";
+		};
 		0DC7B0C720D7A9FD00824D6E /* Library */ = {
 			isa = PBXGroup;
 			children = (
 				0D648E7820D29636008F5519 /* Form */,
+				0D8AC9C320D8F14A00D4306A /* Sections */,
 				0D648E7320D295D8008F5519 /* Cells */,
 				0D648E6B20D26687008F5519 /* Info.plist */,
 			);
