@@ -23,10 +23,12 @@ class ViewController: FormViewController<ViewController.ViewModel> {
         }
         var selectedCurrency: String
         var specifyAmount: Bool
-        var amount: String
+        var amount: String?
 
         var canBeSubmitted: Bool {
-            return !specifyAmount || Double(amount) != nil
+            guard specifyAmount else { return true }
+            guard let amount = amount else { return false }
+            return Double(amount) != nil
         }
     }
 

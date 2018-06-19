@@ -2,10 +2,12 @@ import UIKit
 
 public class FormTextFieldCell<Model>: FormCell<Model>, UITextFieldDelegate {
 
-    public let keyPath: WritableKeyPath<Model, String>
+    public let keyPath: WritableKeyPath<Model, String?>
     public let textField = UITextField()
 
-    public init(keyPath: WritableKeyPath<Model, String>, _ initializer: (FormTextFieldCell<Model>) -> Void = { _ in }) {
+    public init(
+        keyPath: WritableKeyPath<Model, String?>,
+        _ initializer: (FormTextFieldCell<Model>) -> Void = { _ in }) {
 
         self.keyPath = keyPath
 
@@ -37,9 +39,8 @@ public class FormTextFieldCell<Model>: FormCell<Model>, UITextFieldDelegate {
     }
 
     public func textFieldDidEndEditing(_ textField: UITextField) {
-        guard let text = textField.text else { return }
         update { model in
-            model[keyPath: keyPath] = text
+            model[keyPath: keyPath] = textField.text
         }
     }
 
