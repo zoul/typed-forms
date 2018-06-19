@@ -2,7 +2,12 @@ import UIKit
 
 public class FormLabelCell<Model>: FormCell<Model> {
 
-    public init(title: String, _ initializer: (FormLabelCell<Model>) -> Void = { _ in }) {
+    public var title: String? {
+        get { return textLabel?.text }
+        set { textLabel?.text = newValue }
+    }
+
+    public init(title: String? = nil, _ initializer: (FormLabelCell<Model>) -> Void = { _ in }) {
         super.init()
         textLabel?.text = title
         initializer(self)

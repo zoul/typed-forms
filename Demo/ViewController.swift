@@ -46,7 +46,14 @@ class ViewController: FormViewController<ViewController.ViewModel> {
         form += SelectableSection("Cards", items: \.cards, selectedItem: \.selectedCard)
 
         form += Section("Currency")
-            <<< FormSegmentedCell(items: \.selectedCard.currencies, selectedItem: \.selectedCurrency)
+            <<< FormSegmentedCell(items: \.selectedCard.currencies, selectedItem: \.selectedCurrency) {
+                $0.bind(\.isHidden, to: \.selectedCard.currencies, through: { $0.count == 1 })
+            }
+            <<< FormLabelCell {
+                $0.bind(\.isHidden, to: \.selectedCard.currencies, through: { $0.count > 1 })
+                $0.bind(\.title, to: \.selectedCurrency, through: { "Only payment in \($0) is possible." })
+                $0.textLabel?.textColor = .lightGray
+            }
 
         form += Section()
             <<< FormSwitchCell(keyPath: \.specifyAmount, title: "Specify Amount")
