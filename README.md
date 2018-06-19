@@ -72,3 +72,10 @@ form += Section()
     }
 }
 ```
+
+The `form` object can then be used as a table view data source. The table form is always in sync with the model, there’s no need to manually update the table after model changes or vice versa.
+
+## Related Work / Inspiration
+
+* [Eureka](https://github.com/xmartlabs/Eureka/), a full-featured form building library. Very powerful, but unfortunately not very type safe.
+* [Swift Talks: Building a Form Library](https://talk.objc.io/collections/building-a-form-library), great ideas about building modern, type-safe form library.
