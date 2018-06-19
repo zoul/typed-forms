@@ -75,6 +75,9 @@ class ViewController: FormViewController<ViewController.ViewModel> {
         form += Section()
             <<< FormButtonCell(title: "Pay") {
                 $0.bind(\.shouldHighlight, to: \.canBeSubmitted)
+                $0.didSelect = {
+                    print("Moo!")
+                }
             }
 
         return form

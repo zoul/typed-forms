@@ -3,10 +3,9 @@ import UIKit
 public class FormCell<Model>: UITableViewCell, Bindable {
 
     public var shouldHighlight = false
+    public var didSelect = {}
 
     var update: ((inout Model) -> Void) -> Void = { _ in }
-    var didSelect = {}
-
     var bindings: [(Model) -> Void] = []
 
     public init() {
