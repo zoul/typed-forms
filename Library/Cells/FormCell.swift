@@ -6,7 +6,7 @@ public class FormCell<Model>: UITableViewCell, Bindable {
     public var didSelect = {}
 
     var update: ((inout Model) -> Void) -> Void = { _ in }
-    var bindings: [(Model) -> Void] = []
+    public var bindings: [(Model) -> Void] = []
 
     public init() {
         super.init(style: .default, reuseIdentifier: nil)

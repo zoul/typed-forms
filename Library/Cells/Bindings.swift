@@ -1,6 +1,6 @@
 import Foundation
 
-protocol Bindable: AnyObject {
+public protocol Bindable: AnyObject {
 
     associatedtype Model
 
