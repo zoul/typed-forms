@@ -22,3 +22,12 @@ public class FormCell<Model>: UITableViewCell, _Bindable {
         bindings.forEach { $0(model) }
     }
 }
+
+public extension FormCell {
+
+    /// A negated convenience for `isHidden`
+    public var isVisible: Bool {
+        get { return !isHidden }
+        set { isHidden = !newValue }
+    }
+}

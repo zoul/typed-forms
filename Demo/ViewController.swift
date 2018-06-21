@@ -56,10 +56,10 @@ class ViewController: FormViewController<ViewController.ViewModel> {
 
         form += Section("Currency")
             <<< FormSegmentedCell(items: \.selectedCard.currencies, selectedItem: \.selectedCurrency) {
-                $0.bind(\.isHidden, to: \.selectedCard.currencies, through: { $0.count == 1 })
+                $0.bind(\.isVisible, to: \.selectedCard.currencies, through: { $0.count > 1 })
             }
             <<< FormLabelCell {
-                $0.bind(\.isHidden, to: \.selectedCard.currencies, through: { $0.count > 1 })
+                $0.bind(\.isVisible, to: \.selectedCard.currencies, through: { $0.count == 1 })
                 $0.bind(\.title, to: \.selectedCurrency, through: { "Only payment in \($0) is possible." })
                 $0.textLabel?.textColor = .lightGray
             }
@@ -69,7 +69,7 @@ class ViewController: FormViewController<ViewController.ViewModel> {
             <<< FormTextFieldCell(keyPath: \.amount) {
                 $0.textField.placeholder = "Enter amount"
                 $0.textField.clearButtonMode = .whileEditing
-                $0.bind(\.isHidden, to: \.specifyAmount, through: { !$0 })
+                $0.bind(\.isVisible, to: \.specifyAmount)
             }
 
         form += Section()
