@@ -1,13 +1,14 @@
 import Foundation
 
-public protocol Bindable: AnyObject {
+/// This should really be private, see https://github.com/zoul/typed-forms/issues/1.
+public protocol _Bindable: AnyObject {
 
     associatedtype Model
 
     var bindings: [(Model) -> Void] { get set }
 }
 
-extension Bindable {
+extension _Bindable {
 
     public func bind<T>(
         _ viewPath: WritableKeyPath<Self, T>,
