@@ -17,3 +17,23 @@ public class FormLabelCell<Model>: FormCell<Model> {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+/// Bind title directly to a key path in the initializer
+public extension FormLabelCell {
+
+    public convenience init(
+        title titlePath: KeyPath<Model, String?>,
+        _ initializer: (FormLabelCell<Model>) -> Void = { _ in }) {
+        self.init()
+        bind(\.title, to: titlePath)
+        initializer(self)
+    }
+
+    public convenience init(
+        title titlePath: KeyPath<Model, String>,
+        _ initializer: (FormLabelCell<Model>) -> Void = { _ in }) {
+        self.init()
+        bind(\.title, to: titlePath)
+        initializer(self)
+    }
+}
