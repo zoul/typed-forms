@@ -18,6 +18,14 @@ extension _Bindable {
         }
     }
 
+    public func bind<T>(
+        _ viewPath: WritableKeyPath<Self, T?>,
+        to modelPath: KeyPath<Model, T>) {
+        bindings.append { [weak self] model in
+            self?[keyPath: viewPath] = model[keyPath: modelPath]
+        }
+    }
+
     public func bind<T, U>(
         _ viewPath: WritableKeyPath<Self, T>,
         to modelPath: KeyPath<Model, U>,
