@@ -54,14 +54,11 @@ class ViewController: FormViewController<ViewController.ViewModel> {
 
         form += SelectableSection("Cards", items: \.cards, selectedItem: \.selectedCard)
 
-        form += Section("Currency")
-            <<< FormSegmentedCell(items: \.selectedCard.currencies, selectedItem: \.selectedCurrency) {
+        form += Section("Currency") {
                 $0.bind(\.isVisible, to: \.selectedCard.currencies, through: { $0.count > 1 })
             }
-            <<< FormLabelCell {
-                $0.bind(\.isVisible, to: \.selectedCard.currencies, through: { $0.count == 1 })
-                $0.bind(\.primaryText, to: \.selectedCurrency, through: { "Only payment in \($0) is possible." })
-                $0.textLabel?.textColor = .lightGray
+            <<< FormSegmentedCell(items: \.selectedCard.currencies, selectedItem: \.selectedCurrency) {
+                $0.bind(\.isVisible, to: \.selectedCard.currencies, through: { $0.count > 1 })
             }
 
         form += Section()
@@ -70,6 +67,17 @@ class ViewController: FormViewController<ViewController.ViewModel> {
                 $0.textField.placeholder = "Enter amount"
                 $0.textField.clearButtonMode = .whileEditing
                 $0.bind(\.isVisible, to: \.specifyAmount)
+            }
+
+        form += Section("Summary")
+            <<< FormLabelCell(style: .value1, primaryText: "Currency") {
+                $0.bind(\.secondaryText, to: \.selectedCurrency)
+            }
+            <<< FormLabelCell(style: .value1, primaryText: "Amount") {
+                $0.bind(\.isVisible, to: \.specifyAmount)
+                $0.bind(\.secondaryText, to: \.amount, through: { value in
+                    return value?.isEmpty == false ? value : "N/A"
+                })
             }
 
         form += Section()

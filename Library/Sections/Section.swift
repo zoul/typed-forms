@@ -22,10 +22,14 @@ public class Section<Model>: _Bindable {
         return cells.filter { $0.isVisible }
     }
 
-    public init(_ header: String? = nil, cells: [FormCell<Model>] = []) {
+    public init(
+        _ header: String? = nil,
+        cells: [FormCell<Model>] = [],
+        _ initializer: (Section<Model>) -> Void = { _ in }) {
         self.header = header
         self.cells = cells
         cells.forEach(addCell)
+        initializer(self)
     }
 
     public func addCell(_ cell: FormCell<Model>) {
