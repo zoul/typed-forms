@@ -1,8 +1,17 @@
 import UIKit
 
-public class Section<Model> {
+public class Section<Model>: _Bindable {
 
     public var header: String?
+
+    public var isHidden = false
+    public var isVisible: Bool {
+        get { return !isHidden }
+        set { isHidden = !newValue }
+    }
+
+    /// This should really be private, see https://github.com/zoul/typed-forms/issues/1.
+    public var bindings: [(Model) -> Void] = []
 
     var update: ((inout Model) -> Void) -> Void = { _ in }
     var insertRows: ([Int]) -> Void = { _ in }
@@ -10,7 +19,7 @@ public class Section<Model> {
 
     var cells: [FormCell<Model>]
     var visibleCells: [FormCell<Model>] {
-        return cells.filter { !$0.isHidden }
+        return cells.filter { $0.isVisible }
     }
 
     public init(_ header: String? = nil, cells: [FormCell<Model>] = []) {
@@ -27,6 +36,8 @@ public class Section<Model> {
     }
 
     func render(_ model: Model) {
+
+        bindings.forEach { $0(model) }
 
         var changedCells: [FormCell<Model>] = []
         let previouslyVisible = visibleCells
@@ -52,12 +63,12 @@ public class Section<Model> {
             }
         }
 
-        if !insertedRows.isEmpty {
-            insertRows(insertedRows)
-        }
-
         if !deletedRows.isEmpty {
             deleteRows(deletedRows)
+        }
+
+        if !insertedRows.isEmpty {
+            insertRows(insertedRows)
         }
     }
 }

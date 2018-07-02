@@ -3,10 +3,17 @@ import UIKit
 public class Form<Model> {
 
     var update: ((inout Model) -> Void) -> Void = { _ in }
+
     var insertRows: ([IndexPath]) -> Void = { _ in }
     var deleteRows: ([IndexPath]) -> Void = { _ in }
 
-    private(set) var sections: [Section<Model>] = []
+    var insertSections: ([Int]) -> Void = { _ in }
+    var deleteSections: ([Int]) -> Void = { _ in }
+
+    public private(set) var sections: [Section<Model>] = []
+    public var visibleSections: [Section<Model>] {
+        return sections.filter { $0.isVisible }
+    }
 
     public init(sections: [Section<Model>] = []) {
         sections.forEach(addSection)
@@ -29,8 +36,37 @@ public class Form<Model> {
     }
 
     func render(_ model: Model) {
-        sections.forEach {
-            $0.render(model)
+
+        var changedSections: [Section<Model>] = []
+        let previouslyVisible = visibleSections
+
+        for section in sections {
+            let wasHidden = section.isHidden
+            section.render(model)
+            if wasHidden != section.isHidden {
+                changedSections.append(section)
+            }
+        }
+
+        var insertedSections: [Int] = []
+        var deletedSections: [Int] = []
+        let nowVisible = visibleSections
+
+        for section in changedSections {
+            if section.isHidden, let index = previouslyVisible.index(where: { $0 === section }) {
+                deletedSections.append(index)
+            }
+            if !section.isHidden, let index = nowVisible.index(where: { $0 === section }) {
+                insertedSections.append(index)
+            }
+        }
+
+        if !insertedSections.isEmpty {
+            insertSections(insertedSections)
+        }
+
+        if !deletedSections.isEmpty {
+            deleteSections(deletedSections)
         }
     }
 }

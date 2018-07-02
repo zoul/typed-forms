@@ -48,6 +48,14 @@ open class FormViewController<Model>: UITableViewController {
             self?.tableView.deleteRows(at: paths, with: .automatic)
         }
 
+        form.insertSections = { [weak self] indices in
+            self?.tableView.insertSections(IndexSet(indices), with: .automatic)
+        }
+
+        form.deleteSections = { [weak self] indices in
+            self?.tableView.deleteSections(IndexSet(indices), with: .automatic)
+        }
+
         return form
     }
 
@@ -56,15 +64,15 @@ open class FormViewController<Model>: UITableViewController {
     //
 
     private func cell(for indexPath: IndexPath) -> FormCell<Model> {
-        return form.sections[indexPath.section].visibleCells[indexPath.row]
+        return form.visibleSections[indexPath.section].visibleCells[indexPath.row]
     }
 
     open override func numberOfSections(in tableView: UITableView) -> Int {
-        return form.sections.count
+        return form.visibleSections.count
     }
 
     open override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return form.sections[section].visibleCells.count
+        return form.visibleSections[section].visibleCells.count
     }
 
     open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -72,7 +80,7 @@ open class FormViewController<Model>: UITableViewController {
     }
 
     open override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return form.sections[section].header
+        return form.visibleSections[section].header
     }
 
     open override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
