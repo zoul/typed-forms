@@ -20,16 +20,17 @@ public class Form<Model> {
     }
 
     public func addSection(_ section: Section<Model>) {
-        let index = sections.count
         sections.append(section)
         section.update = { [weak self] change in
             self?.update(change)
         }
         section.insertRows = { [weak self] rows in
+            guard let index = self?.visibleSections.index(where: { $0 === section }) else { return }
             let paths = rows.map { IndexPath(row: $0, section: index) }
             self?.insertRows(paths)
         }
         section.deleteRows = { [weak self] rows in
+            guard let index = self?.visibleSections.index(where: { $0 === section }) else { return }
             let paths = rows.map { IndexPath(row: $0, section: index) }
             self?.deleteRows(paths)
         }
