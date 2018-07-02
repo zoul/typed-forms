@@ -60,7 +60,7 @@ class ViewController: FormViewController<ViewController.ViewModel> {
             }
             <<< FormLabelCell {
                 $0.bind(\.isVisible, to: \.selectedCard.currencies, through: { $0.count == 1 })
-                $0.bind(\.title, to: \.selectedCurrency, through: { "Only payment in \($0) is possible." })
+                $0.bind(\.primaryText, to: \.selectedCurrency, through: { "Only payment in \($0) is possible." })
                 $0.textLabel?.textColor = .lightGray
             }
 

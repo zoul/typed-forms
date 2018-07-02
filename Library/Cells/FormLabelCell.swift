@@ -2,14 +2,24 @@ import UIKit
 
 public class FormLabelCell<Model>: FormCell<Model> {
 
-    public var title: String? {
+    public var primaryText: String? {
         get { return textLabel?.text }
         set { textLabel?.text = newValue }
     }
 
-    public init(title: String? = nil, _ initializer: (FormLabelCell<Model>) -> Void = { _ in }) {
-        super.init()
-        textLabel?.text = title
+    public var secondaryText: String? {
+        get { return detailTextLabel?.text }
+        set { detailTextLabel?.text = newValue }
+    }
+
+    public init(
+        style: UITableViewCellStyle = .default,
+        primaryText: String? = nil,
+        secondaryText: String? = nil,
+        _ initializer: (FormLabelCell<Model>) -> Void = { _ in }) {
+        super.init(style: style)
+        textLabel?.text = primaryText
+        detailTextLabel?.text = secondaryText
         initializer(self)
     }
 
@@ -22,18 +32,20 @@ public class FormLabelCell<Model>: FormCell<Model> {
 public extension FormLabelCell {
 
     public convenience init(
-        title titlePath: KeyPath<Model, String?>,
+        style: UITableViewCellStyle = .default,
+        primaryText primaryTextPath: KeyPath<Model, String?>,
         _ initializer: (FormLabelCell<Model>) -> Void = { _ in }) {
-        self.init()
-        bind(\.title, to: titlePath)
+        self.init(style: style)
+        bind(\.primaryText, to: primaryTextPath)
         initializer(self)
     }
 
     public convenience init(
-        title titlePath: KeyPath<Model, String>,
+        style: UITableViewCellStyle = .default,
+        primaryText primaryTextPath: KeyPath<Model, String>,
         _ initializer: (FormLabelCell<Model>) -> Void = { _ in }) {
-        self.init()
-        bind(\.title, to: titlePath)
+        self.init(style: style)
+        bind(\.primaryText, to: primaryTextPath)
         initializer(self)
     }
 }

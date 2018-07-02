@@ -40,7 +40,7 @@ public class SelectableSection<Model, ItemType>: Section<Model> where ItemType: 
     }
 
     private func cellForItem(_ item: ItemType) -> FormCell<Model> {
-        let cell = FormLabelCell<Model>(title: descriptor(item))
+        let cell = FormLabelCell<Model>(primaryText: descriptor(item))
         cell.shouldHighlight = true
         cell.didSelect = { [weak self] in
             self?.didSelectCell(cell)

@@ -10,8 +10,8 @@ public class FormCell<Model>: UITableViewCell, _Bindable {
     /// This should really be private, see https://github.com/zoul/typed-forms/issues/1.
     public var bindings: [(Model) -> Void] = []
 
-    public init() {
-        super.init(style: .default, reuseIdentifier: nil)
+    public init(style: UITableViewCellStyle = .default) {
+        super.init(style: style, reuseIdentifier: nil)
     }
 
     public required init?(coder aDecoder: NSCoder) {
