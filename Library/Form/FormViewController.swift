@@ -6,9 +6,8 @@ open class FormViewController<Model>: UITableViewController {
 
     public var model: Model {
         didSet {
-            tableView.beginUpdates()
-            form.render(model)
-            tableView.endUpdates()
+            let updates = form.render(model)
+            updates.apply(to: tableView)
         }
     }
 
@@ -33,27 +32,11 @@ open class FormViewController<Model>: UITableViewController {
 
         let form = loadForm()
 
-        form.render(model)
+        _ = form.render(model)
 
         form.update = { [weak self] change in
             guard let `self` = self else { return }
             change(&self.model)
-        }
-
-        form.insertRows = { [weak self] paths in
-            self?.tableView.insertRows(at: paths, with: .automatic)
-        }
-
-        form.deleteRows = { [weak self] paths in
-            self?.tableView.deleteRows(at: paths, with: .automatic)
-        }
-
-        form.insertSections = { [weak self] indices in
-            self?.tableView.insertSections(IndexSet(indices), with: .automatic)
-        }
-
-        form.deleteSections = { [weak self] indices in
-            self?.tableView.deleteSections(IndexSet(indices), with: .automatic)
         }
 
         return form

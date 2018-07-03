@@ -2,6 +2,11 @@ import UIKit
 
 public class Section<Model>: _Bindable {
 
+    public struct TableUpdates: Equatable {
+        public var deletedRows = IndexSet()
+        public var insertedRows = IndexSet()
+    }
+
     public var header: String?
 
     public var isHidden = false
@@ -14,8 +19,6 @@ public class Section<Model>: _Bindable {
     public var bindings: [(Model) -> Void] = []
 
     var update: ((inout Model) -> Void) -> Void = { _ in }
-    var insertRows: ([Int]) -> Void = { _ in }
-    var deleteRows: ([Int]) -> Void = { _ in }
 
     var cells: [FormCell<Model>]
     var visibleCells: [FormCell<Model>] {
@@ -39,7 +42,7 @@ public class Section<Model>: _Bindable {
         }
     }
 
-    func render(_ model: Model) {
+    func render(_ model: Model) -> TableUpdates {
 
         bindings.forEach { $0(model) }
 
@@ -54,25 +57,18 @@ public class Section<Model>: _Bindable {
             }
         }
 
-        var insertedRows: [Int] = []
-        var deletedRows: [Int] = []
+        var updates = TableUpdates()
         let nowVisible = visibleCells
 
         for cell in changedCells {
             if cell.isHidden, let row = previouslyVisible.index(of: cell) {
-                deletedRows.append(row)
+                updates.deletedRows.insert(row)
             }
             if !cell.isHidden, let row = nowVisible.index(of: cell) {
-                insertedRows.append(row)
+                updates.insertedRows.insert(row)
             }
         }
 
-        if !deletedRows.isEmpty {
-            deleteRows(deletedRows)
-        }
-
-        if !insertedRows.isEmpty {
-            insertRows(insertedRows)
-        }
+        return updates
     }
 }

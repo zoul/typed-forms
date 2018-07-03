@@ -4,12 +4,6 @@ public class Form<Model> {
 
     var update: ((inout Model) -> Void) -> Void = { _ in }
 
-    var insertRows: ([IndexPath]) -> Void = { _ in }
-    var deleteRows: ([IndexPath]) -> Void = { _ in }
-
-    var insertSections: ([Int]) -> Void = { _ in }
-    var deleteSections: ([Int]) -> Void = { _ in }
-
     public private(set) var sections: [Section<Model>] = []
     public var visibleSections: [Section<Model>] {
         return sections.filter { $0.isVisible }
@@ -24,50 +18,66 @@ public class Form<Model> {
         section.update = { [weak self] change in
             self?.update(change)
         }
-        section.insertRows = { [weak self] rows in
-            guard let index = self?.visibleSections.index(where: { $0 === section }) else { return }
-            let paths = rows.map { IndexPath(row: $0, section: index) }
-            self?.insertRows(paths)
-        }
-        section.deleteRows = { [weak self] rows in
-            guard let index = self?.visibleSections.index(where: { $0 === section }) else { return }
-            let paths = rows.map { IndexPath(row: $0, section: index) }
-            self?.deleteRows(paths)
-        }
     }
 
-    func render(_ model: Model) {
+    func render(_ model: Model) -> TableUpdates {
 
         var changedSections: [Section<Model>] = []
         let previouslyVisible = visibleSections
+        var updates = TableUpdates()
 
-        for section in sections {
+        for (index, section) in sections.enumerated() {
             let wasHidden = section.isHidden
-            section.render(model)
+            let sectionUpdates = section.render(model)
+            updates.appendSectionUpdates(sectionUpdates, withSectionIndex: index)
             if wasHidden != section.isHidden {
                 changedSections.append(section)
             }
         }
 
-        var insertedSections: [Int] = []
-        var deletedSections: [Int] = []
         let nowVisible = visibleSections
 
         for section in changedSections {
             if section.isHidden, let index = previouslyVisible.index(where: { $0 === section }) {
-                deletedSections.append(index)
+                updates.deletedSections.insert(index)
             }
             if !section.isHidden, let index = nowVisible.index(where: { $0 === section }) {
-                insertedSections.append(index)
+                updates.insertedSections.insert(index)
             }
         }
 
-        if !insertedSections.isEmpty {
-            insertSections(insertedSections)
+        return updates
+    }
+}
+
+public extension Form {
+
+    public struct TableUpdates: Equatable {
+
+        public var insertedRows: [IndexPath]
+        public var deletedRows: [IndexPath]
+        public var insertedSections: IndexSet
+        public var deletedSections: IndexSet
+
+        public init() {
+            insertedRows = []
+            deletedRows = []
+            insertedSections = IndexSet()
+            deletedSections = IndexSet()
         }
 
-        if !deletedSections.isEmpty {
-            deleteSections(deletedSections)
+        public mutating func appendSectionUpdates(_ updates: Section<Model>.TableUpdates, withSectionIndex index: Int) {
+            deletedRows.append(contentsOf: updates.deletedRows.map { IndexPath(row: $0, section: index) })
+            insertedRows.append(contentsOf: updates.insertedRows.map { IndexPath(row: $0, section: index) })
+        }
+
+        public func apply(to tableView: UITableView) {
+            tableView.beginUpdates()
+            tableView.insertRows(at: insertedRows, with: .automatic)
+            tableView.deleteRows(at: deletedRows, with: .automatic)
+            tableView.insertSections(insertedSections, with: .automatic)
+            tableView.deleteSections(deletedSections, with: .automatic)
+            tableView.endUpdates()
         }
     }
 }

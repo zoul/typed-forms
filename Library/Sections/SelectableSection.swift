@@ -19,9 +19,9 @@ public class SelectableSection<Model, ItemType>: Section<Model> where ItemType: 
         super.init(header, cells: [])
     }
 
-    override func render(_ model: Model) {
+    override func render(_ model: Model) -> TableUpdates {
 
-        super.render(model)
+        let delta = super.render(model)
 
         let items = model[keyPath: itemsKeyPath]
         let selectedItem = model[keyPath: selectedItemKeyPath]
@@ -37,6 +37,8 @@ public class SelectableSection<Model, ItemType>: Section<Model> where ItemType: 
         if let selectedIndex = items.index(of: selectedItem) {
             cells[selectedIndex].accessoryType = .checkmark
         }
+
+        return delta
     }
 
     private func cellForItem(_ item: ItemType) -> FormCell<Model> {
