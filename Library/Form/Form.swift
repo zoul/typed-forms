@@ -26,10 +26,17 @@ public class Form<Model> {
         let previouslyVisible = visibleSections
         var updates = TableUpdates()
 
-        for (index, section) in sections.enumerated() {
+        for section in sections {
             let wasHidden = section.isHidden
             let sectionUpdates = section.render(model)
-            updates.appendSectionUpdates(sectionUpdates, withSectionIndex: index)
+            if let index = previouslyVisible.index(where: { $0 === section }) {
+                updates.deletedRows.append(contentsOf:
+                    sectionUpdates.deletedRows.map { IndexPath(row: $0, section: index) })
+            }
+            if let index = visibleSections.index(where: { $0 === section }) {
+                updates.insertedRows.append(contentsOf:
+                    sectionUpdates.insertedRows.map { IndexPath(row: $0, section: index) })
+            }
             if wasHidden != section.isHidden {
                 changedSections.append(section)
             }
@@ -64,11 +71,6 @@ public extension Form {
             deletedRows = []
             insertedSections = IndexSet()
             deletedSections = IndexSet()
-        }
-
-        public mutating func appendSectionUpdates(_ updates: Section<Model>.TableUpdates, withSectionIndex index: Int) {
-            deletedRows.append(contentsOf: updates.deletedRows.map { IndexPath(row: $0, section: index) })
-            insertedRows.append(contentsOf: updates.insertedRows.map { IndexPath(row: $0, section: index) })
         }
 
         public func apply(to tableView: UITableView) {
