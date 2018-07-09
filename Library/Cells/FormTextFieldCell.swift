@@ -19,6 +19,8 @@ public class FormTextFieldCell<Model>: FormCell<Model>, UITextFieldDelegate {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.returnKeyType = .done
 
+        textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+
         NSLayoutConstraint.activate([
             textField.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 15),
             textField.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -15),
@@ -38,14 +40,9 @@ public class FormTextFieldCell<Model>: FormCell<Model>, UITextFieldDelegate {
         textField.text = model[keyPath: keyPath]
     }
 
-    public func textFieldDidEndEditing(_ textField: UITextField) {
+    @objc private func textFieldDidChange() {
         update { model in
             model[keyPath: keyPath] = textField.text
         }
-    }
-
-    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
     }
 }
