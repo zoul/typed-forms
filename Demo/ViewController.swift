@@ -64,9 +64,13 @@ class ViewController: FormViewController<ViewController.ViewModel> {
         form += Section()
             <<< FormSwitchCell(keyPath: \.specifyAmount, title: "Specify Amount")
             <<< FormTextFieldCell(keyPath: \.amount) {
+                $0.bind(\.isVisible, to: \.specifyAmount)
                 $0.textField.placeholder = "Enter amount"
                 $0.textField.clearButtonMode = .whileEditing
-                $0.bind(\.isVisible, to: \.specifyAmount)
+                $0.textField.keyboardType = .decimalPad
+                $0.inputFilter = { text in
+                    return text == "" || Double(text) != nil
+                }
             }
 
         form += Section("Summary")

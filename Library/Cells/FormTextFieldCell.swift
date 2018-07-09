@@ -5,6 +5,11 @@ public class FormTextFieldCell<Model>: FormCell<Model>, UITextFieldDelegate {
     public let keyPath: WritableKeyPath<Model, String?>
     public let textField = UITextField()
 
+    /// Text change will only be accepted if it passes the input filter
+    ///
+    /// The default filter accepts anything.
+    public var inputFilter: (String) -> Bool = { _ in true }
+
     public init(
         keyPath: WritableKeyPath<Model, String?>,
         _ initializer: (FormTextFieldCell<Model>) -> Void = { _ in }) {
@@ -44,6 +49,15 @@ public class FormTextFieldCell<Model>: FormCell<Model>, UITextFieldDelegate {
         update { model in
             model[keyPath: keyPath] = textField.text
         }
+    }
+
+    public func textField(
+        _ textField: UITextField,
+        shouldChangeCharactersIn range: NSRange,
+        replacementString string: String) -> Bool {
+        guard let text = textField.text, let textRange = Range(range, in: text) else { return true }
+        let updatedText = text.replacingCharacters(in: textRange, with: string)
+        return inputFilter(updatedText)
     }
 
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
