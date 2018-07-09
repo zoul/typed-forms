@@ -31,6 +31,17 @@ class ViewController: FormViewController<ViewController.ViewModel> {
             return Double(amount) != nil
         }
 
+        var formattedAmount: String? {
+            guard
+                specifyAmount,
+                let amount = amount.flatMap(Double.init)
+                else { return nil }
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .currencyISOCode
+            formatter.currencyCode = selectedCurrency
+            return formatter.string(from: amount as NSNumber)
+        }
+
         static func sample() -> ViewModel {
             let card1 = Card(name: "Card #1", currencies: ["CZK", "EUR"])
             let card2 = Card(name: "Card #2", currencies: ["EUR", "PLN", "GBP"])
@@ -85,7 +96,10 @@ class ViewController: FormViewController<ViewController.ViewModel> {
             }
 
         form += Section()
-            <<< FormButtonCell(title: "Pay") {
+            <<< FormButtonCell {
+                $0.bind(\.title, to: \.formattedAmount, through: { amount in
+                    return amount != nil ? "Pay \(amount!)" : "Pay"
+                })
                 $0.bind(\.shouldHighlight, to: \.canBeSubmitted)
                 $0.didSelect = {
                     print("Moo!")
