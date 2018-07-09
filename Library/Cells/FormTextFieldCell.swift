@@ -45,4 +45,9 @@ public class FormTextFieldCell<Model>: FormCell<Model>, UITextFieldDelegate {
             model[keyPath: keyPath] = textField.text
         }
     }
+
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }
