@@ -1,6 +1,6 @@
 import UIKit
 
-public class FormCell<Model>: UITableViewCell, _Bindable {
+open class FormCell<Model>: UITableViewCell, _Bindable {
 
     public var shouldHighlight = false
     public var didSelect = {}
