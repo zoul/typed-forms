@@ -32,7 +32,7 @@ public class FormSwitchCell<Model>: FormCell<Model> {
         }
     }
 
-    override func render(_ model: Model) {
+    open override func render(_ model: Model) {
         super.render(model)
         switchControl.setOn(model[keyPath: keyPath], animated: true)
     }

@@ -18,7 +18,7 @@ open class FormCell<Model>: UITableViewCell, _Bindable {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func render(_ model: Model) {
+    open func render(_ model: Model) {
         bindings.forEach { $0(model) }
     }
 }

@@ -40,7 +40,7 @@ public class FormTextFieldCell<Model>: FormCell<Model>, UITextFieldDelegate {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func render(_ model: Model) {
+    open override func render(_ model: Model) {
         super.render(model)
         textField.text = model[keyPath: keyPath]
     }

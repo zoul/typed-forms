@@ -20,7 +20,7 @@ public class FormButtonCell<Model>: FormCell<Model> {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func render(_ model: Model) {
+    open override func render(_ model: Model) {
         super.render(model)
         textLabel?.textColor = shouldHighlight ? tintColor : .lightGray
     }
