@@ -5,7 +5,7 @@ open class FormCell<Model>: UITableViewCell, _Bindable {
     public var shouldHighlight = false
     public var didSelect = {}
 
-    var update: ((inout Model) -> Void) -> Void = { _ in }
+    public var update: ((inout Model) -> Void) -> Void = { _ in }
 
     /// This should really be private, see https://github.com/zoul/typed-forms/issues/1.
     public var bindings: [(Model) -> Void] = []
