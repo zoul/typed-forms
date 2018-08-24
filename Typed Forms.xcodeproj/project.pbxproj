@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D21543E21302E39001CD01E /* FormPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D21543D21302E39001CD01E /* FormPickerCell.swift */; };
 		0D648E6020D26686008F5519 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D648E5F20D26686008F5519 /* AppDelegate.swift */; };
 		0D648E6220D26686008F5519 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D648E6120D26686008F5519 /* ViewController.swift */; };
 		0D648E6720D26687008F5519 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D648E6620D26687008F5519 /* Assets.xcassets */; };
@@ -52,6 +53,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0D21543D21302E39001CD01E /* FormPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormPickerCell.swift; sourceTree = "<group>"; };
 		0D648E5C20D26686008F5519 /* Form Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Form Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D648E5F20D26686008F5519 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0D648E6120D26686008F5519 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				0D648E7420D29607008F5519 /* FormCell.swift */,
 				0D648E7620D29625008F5519 /* FormSwitchCell.swift */,
 				0D648E8320D2AD1E008F5519 /* FormSegmentedCell.swift */,
+				0D21543D21302E39001CD01E /* FormPickerCell.swift */,
 				0D648E8120D29826008F5519 /* FormLabelCell.swift */,
 				0DC7B0F520D7AE6200824D6E /* FormTextFieldCell.swift */,
 				0DC7B0B320D799AB00824D6E /* FormButtonCell.swift */,
@@ -305,6 +308,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D21543E21302E39001CD01E /* FormPickerCell.swift in Sources */,
 				0DC7B0C820D7AA2200824D6E /* Section.swift in Sources */,
 				0DC7B0F620D7AE6200824D6E /* FormTextFieldCell.swift in Sources */,
 				0DC7B0CD20D7AA2B00824D6E /* FormCell.swift in Sources */,

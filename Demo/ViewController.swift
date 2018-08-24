@@ -25,6 +25,9 @@ class ViewController: FormViewController<ViewController.ViewModel> {
         var specifyAmount: Bool
         var amount: String?
 
+        let daysOfWeek = ["Sunday", "Monday", "Wednesday"]
+        var selectedDayOfWeek: String
+
         var canBeSubmitted: Bool {
             guard specifyAmount else { return true }
             guard let amount = amount else { return false }
@@ -51,7 +54,8 @@ class ViewController: FormViewController<ViewController.ViewModel> {
                 selectedCard: card2,
                 selectedCurrency: "EUR",
                 specifyAmount: false,
-                amount: "1000")
+                amount: "1000",
+                selectedDayOfWeek: "Wednesday")
         }
     }
 
@@ -71,6 +75,9 @@ class ViewController: FormViewController<ViewController.ViewModel> {
             <<< FormSegmentedCell(items: \.selectedCard.currencies, selectedItem: \.selectedCurrency) {
                 $0.bind(\.isVisible, to: \.selectedCard.currencies, through: { $0.count > 1 })
             }
+
+        form += Section("Delivery Day")
+            <<< FormPickerCell(items: \.daysOfWeek, selectedItem: \.selectedDayOfWeek)
 
         form += Section()
             <<< FormSwitchCell(keyPath: \.specifyAmount, title: "Specify Amount")
