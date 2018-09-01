@@ -12,7 +12,7 @@ public class SelectableSection<Model, ItemType>: Section<Model> where ItemType: 
         _ header: String? = nil,
         items: KeyPath<Model, [ItemType]>,
         selectedItem: WritableKeyPath<Model, ItemType>,
-        descriptor: @escaping (ItemType) -> String) {
+        descriptor: @escaping (ItemType) -> String = String.init(describing:)) {
         itemsKeyPath = items
         selectedItemKeyPath = selectedItem
         self.descriptor = descriptor
@@ -56,15 +56,5 @@ public class SelectableSection<Model, ItemType>: Section<Model> where ItemType: 
             let items = model[keyPath: itemsKeyPath]
             model[keyPath: selectedItemKeyPath] = items[itemIndex]
         }
-    }
-}
-
-extension SelectableSection where ItemType: CustomStringConvertible {
-
-    public convenience init(
-        _ header: String? = nil,
-        items: KeyPath<Model, [ItemType]>,
-        selectedItem: WritableKeyPath<Model, ItemType>) {
-        self.init(header, items: items, selectedItem: selectedItem, descriptor: { $0.description })
     }
 }

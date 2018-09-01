@@ -14,7 +14,7 @@ public class FormPickerCell<Model, ItemType: Equatable>: FormCell<Model>, UIPick
     public init(
         items: KeyPath<Model, [ItemType]>,
         selectedItem: WritableKeyPath<Model, ItemType>,
-        descriptor: @escaping (ItemType) -> String,
+        descriptor: @escaping (ItemType) -> String = String.init(describing:),
         _ initializer: (FormPickerCell<Model, ItemType>) -> Void = { _ in }) {
 
         itemsKeyPath = items
@@ -80,16 +80,6 @@ public class FormPickerCell<Model, ItemType: Equatable>: FormCell<Model>, UIPick
         update { model in
             model[keyPath: selectedItemKeyPath] = items[row]
         }
-    }
-}
-
-extension FormPickerCell where ItemType: CustomStringConvertible {
-
-    public convenience init(
-        items: KeyPath<Model, [ItemType]>,
-        selectedItem: WritableKeyPath<Model, ItemType>,
-        _ initializer: (FormPickerCell<Model, ItemType>) -> Void = { _ in }) {
-        self.init(items: items, selectedItem: selectedItem, descriptor: { $0.description }, initializer)
     }
 }
 

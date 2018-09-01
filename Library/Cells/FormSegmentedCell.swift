@@ -12,7 +12,7 @@ public class FormSegmentedCell<Model, ItemType>: FormCell<Model> where ItemType:
     public init(
         items: KeyPath<Model, [ItemType]>,
         selectedItem: WritableKeyPath<Model, ItemType>,
-        descriptor: @escaping (ItemType) -> String,
+        descriptor: @escaping (ItemType) -> String = String.init(describing:),
         _ initializer: (FormSegmentedCell<Model, ItemType>) -> Void = { _ in }) {
 
         itemsKeyPath = items
@@ -67,15 +67,5 @@ public class FormSegmentedCell<Model, ItemType>: FormCell<Model> where ItemType:
         update { model in
             model[keyPath: selectedItemKeyPath] = selectedItem
         }
-    }
-}
-
-extension FormSegmentedCell where ItemType: CustomStringConvertible {
-
-    public convenience init(
-        items: KeyPath<Model, [ItemType]>,
-        selectedItem: WritableKeyPath<Model, ItemType>,
-        _ initializer: (FormSegmentedCell<Model, ItemType>) -> Void = { _ in }) {
-        self.init(items: items, selectedItem: selectedItem, descriptor: { $0.description }, initializer)
     }
 }
