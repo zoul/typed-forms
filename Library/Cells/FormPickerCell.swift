@@ -4,11 +4,14 @@ public class FormPickerCell<Model, ItemType: Equatable>: FormCell<Model>, UIPick
 
     public let itemsKeyPath: KeyPath<Model, [ItemType]>
     public let selectedItemKeyPath: WritableKeyPath<Model, ItemType>
+
     public let picker = UIPickerView()
+    public var label: UILabel {
+        return labelView
+    }
 
     private let descriptor: (ItemType) -> String
     private var items: [ItemType] = []
-
     private let labelView = PickerLabel()
 
     public init(
