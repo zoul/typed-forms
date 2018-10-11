@@ -1,6 +1,6 @@
 import UIKit
 
-public class Section<Model>: _Bindable {
+open class Section<Model>: _Bindable {
 
     public struct TableUpdates: Equatable {
         public var deletedRows = IndexSet()
